@@ -68,7 +68,7 @@ class DepositoControllerTest extends BaseContaTest {
     }
 
     @Test
-    void testSaqueContaInvalida() throws Exception {
+    void testDepositoContaInvalida() throws Exception {
         Conta contaBase = criarConta(BigDecimal.TEN);
         Optional<Conta> contaInexistente = repository.findContaByNumeroConta(9999);
         assertTrue(contaInexistente.isEmpty());
