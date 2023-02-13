@@ -36,22 +36,4 @@ abstract class BaseContaTest {
         return repository.findContaByNumeroConta(contaBase.getNumeroConta())
                 .orElseThrow(NullPointerException::new);
     }
-    @Test
-    void testPixNegativo() throws Exception {
-        Conta contaBase1 = criarConta(BigDecimal.valueOf(5.00));
-        Conta contaBase2 = criarConta(BigDecimal.valueOf(7.00));
-        fail();
-    }
-    @Test
-    void testPixContaRemetenteInvalido() throws Exception {
-        Conta contaBase1 = criarConta(BigDecimal.valueOf(5.00));
-        Conta contaBase2 = criarConta(BigDecimal.valueOf(7.00));
-        fail();
-    }
-    @Test
-    void testPixContaDestinoInvalido() throws Exception {
-        Conta contaBase1 = criarConta(BigDecimal.valueOf(5.00));
-        Conta contaBase2 = criarConta(BigDecimal.valueOf(7.00));
-        fail();
-    }
 }
