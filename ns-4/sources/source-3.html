@@ -1,0 +1,178 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Pessoa</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tech.ada.banco.model</a>
+</div>
+
+<h1>Coverage Summary for Class: Pessoa (tech.ada.banco.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Pessoa</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Pessoa$HibernateProxy$FTV2GPNp</td>
+  </tr>
+  <tr>
+    <td class="name">Pessoa$HibernateProxy$QBxnEaPA</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tech.ada.banco.model;
+&nbsp;
+&nbsp;import jakarta.persistence.Column;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.GeneratedValue;
+&nbsp;import jakarta.persistence.GenerationType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.SequenceGenerator;
+&nbsp;import jakarta.persistence.Table;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.Setter;
+&nbsp;import tech.ada.banco.exceptions.ValorInvalidoException;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;
+<b class="nc">&nbsp;@Setter</b>
+&nbsp;@Getter
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;PESSOA&quot;)
+&nbsp;public class Pessoa {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @SequenceGenerator(name = &quot;pessoaSequenceGenerator&quot;, sequenceName = &quot;PESSOA_SQ&quot;, initialValue = 100)
+&nbsp;    @GeneratedValue(generator = &quot;pessoaSequenceGenerator&quot;, strategy = GenerationType.SEQUENCE)
+&nbsp;    @Column(updatable = false)
+<b class="nc">&nbsp;    private Long id;</b>
+&nbsp;
+&nbsp;    @Column(name = &quot;DATA_NASCIMENTO&quot;)
+<b class="nc">&nbsp;    private LocalDate dataNascimento;</b>
+&nbsp;
+&nbsp;    @Column(name = &quot;CPF&quot;)
+<b class="nc">&nbsp;    private String cpf;</b>
+&nbsp;
+&nbsp;    @Column(name = &quot;TELEFONE&quot;)
+<b class="nc">&nbsp;    private String telefone;</b>
+&nbsp;
+&nbsp;    @Column(name = &quot;NOME&quot;)
+<b class="nc">&nbsp;    private String nome;</b>
+&nbsp;
+<b class="nc">&nbsp;    public Pessoa(String nome, String cpf, LocalDate dataNascimento) {</b>
+<b class="nc">&nbsp;        setDataNascimento(dataNascimento);</b>
+<b class="nc">&nbsp;        this.cpf = cpf;</b>
+<b class="nc">&nbsp;        this.nome = nome;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    protected Pessoa() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Nome: &quot; + nome + &quot; telefone: &quot; + telefone + &quot; e cpf: &quot; + cpf;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDataNascimento(LocalDate dataNascimento) {
+<b class="nc">&nbsp;        if (dataNascimento.plusYears(18).isAfter(LocalDate.now())) {</b>
+<b class="nc">&nbsp;            throw new ValorInvalidoException();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.dataNascimento = dataNascimento;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-09 19:20</div>
+</div>
+</body>
+</html>

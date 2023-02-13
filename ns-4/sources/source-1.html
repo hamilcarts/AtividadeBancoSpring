@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Conta</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tech.ada.banco.model</a>
+</div>
+
+<h1>Coverage Summary for Class: Conta (tech.ada.banco.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Conta</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (6/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/20)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Conta$HibernateProxy$cLoA2gc3</td>
+  </tr>
+  <tr>
+    <td class="name">Conta$HibernateProxy$FjGijNSR</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (6/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tech.ada.banco.model;
+&nbsp;
+&nbsp;import jakarta.persistence.CascadeType;
+&nbsp;import jakarta.persistence.Column;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.EnumType;
+&nbsp;import jakarta.persistence.Enumerated;
+&nbsp;import jakarta.persistence.FetchType;
+&nbsp;import jakarta.persistence.GeneratedValue;
+&nbsp;import jakarta.persistence.GenerationType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.JoinColumn;
+&nbsp;import jakarta.persistence.ManyToOne;
+&nbsp;import jakarta.persistence.SequenceGenerator;
+&nbsp;import jakarta.persistence.Table;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.Setter;
+&nbsp;import tech.ada.banco.exceptions.SaldoInsuficienteException;
+&nbsp;import tech.ada.banco.exceptions.ValorInvalidoException;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;CONTA&quot;)
+&nbsp;@Getter
+<b class="nc">&nbsp;@Setter</b>
+&nbsp;public class Conta {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @SequenceGenerator(name = &quot;contaSequenceGenerator&quot;, sequenceName = &quot;CONTA_SQ&quot;, initialValue = 10000)
+&nbsp;    @GeneratedValue(generator = &quot;contaSequenceGenerator&quot;, strategy = GenerationType.SEQUENCE)
+&nbsp;    @Column(updatable = false)
+&nbsp;    private int numeroConta;
+&nbsp;
+&nbsp;    @Column(name = &quot;TIPO&quot;)
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    private ModalidadeConta tipo;
+&nbsp;
+&nbsp;    @Column(name = &quot;SALDO&quot;)
+&nbsp;    protected BigDecimal saldo;
+&nbsp;
+&nbsp;    @Column(name = &quot;AGENCIA&quot;)
+<b class="nc">&nbsp;    private final String agencia;</b>
+&nbsp;    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+&nbsp;    @JoinColumn(name = &quot;PESSOA_ID&quot;, referencedColumnName = &quot;ID&quot;)
+<b class="nc">&nbsp;    private Pessoa titular;</b>
+&nbsp;
+&nbsp;    public Conta(ModalidadeConta tipo, Pessoa titular) {
+<b class="fc">&nbsp;        this();</b>
+<b class="fc">&nbsp;        this.tipo = tipo;</b>
+<b class="fc">&nbsp;        this.titular = titular;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    protected Conta() {</b>
+<b class="fc">&nbsp;        agencia = &quot;0001&quot;;</b>
+<b class="fc">&nbsp;        saldo = BigDecimal.ZERO;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ModalidadeConta getTipo() {
+<b class="nc">&nbsp;        return tipo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public BigDecimal getSaldo() {
+<b class="fc">&nbsp;        return saldo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void deposito(BigDecimal valor) {
+<b class="fc">&nbsp;        if (valor.compareTo(BigDecimal.ZERO) &lt; 0) {</b>
+<b class="fc">&nbsp;            throw new ValorInvalidoException();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        saldo = saldo.add(valor);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void saque(BigDecimal valor) {
+<b class="fc">&nbsp;        if (valor.compareTo(BigDecimal.ZERO) &lt; 0) {</b>
+<b class="fc">&nbsp;            throw new ValorInvalidoException();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (valor.compareTo(saldo) &gt; 0) {</b>
+<b class="fc">&nbsp;            throw new SaldoInsuficienteException();</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            saldo = saldo.subtract(valor);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getNumeroConta() {
+<b class="fc">&nbsp;        return numeroConta;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-09 19:20</div>
+</div>
+</body>
+</html>
