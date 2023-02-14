@@ -11,7 +11,8 @@ import tech.ada.banco.repository.ContaRepository;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -20,7 +21,7 @@ class DepositoTest {
     private final Deposito deposito = new Deposito(repository);
 
     @Test
-    void depositoPositivo(){
+    void depositoPositivo() {
         Conta conta = new Conta(ModalidadeConta.CC, null);
         conta.deposito(BigDecimal.TEN);
         conta.deposito(BigDecimal.TEN);
@@ -33,7 +34,7 @@ class DepositoTest {
     }
 
     @Test
-    void depositoNegativo(){
+    void depositoNegativo() {
         Conta conta = new Conta(ModalidadeConta.CC, null);
         try {
             conta.deposito(BigDecimal.valueOf(-1.00));
@@ -48,7 +49,7 @@ class DepositoTest {
     }
 
     @Test
-    void depositoValorDecimal(){
+    void depositoValorDecimal() {
         Conta conta = new Conta(ModalidadeConta.CC, null);
         conta.deposito(BigDecimal.valueOf(1.17));
         conta.deposito(BigDecimal.valueOf(1.13));
@@ -58,7 +59,7 @@ class DepositoTest {
     }
 
     @Test
-    void depositoContaInexistente(){
+    void depositoContaInexistente() {
         Conta conta = new Conta(ModalidadeConta.CC, null);
         conta.deposito(BigDecimal.TEN);
         when(repository.findContaByNumeroConta(10)).thenReturn(Optional.of(conta));

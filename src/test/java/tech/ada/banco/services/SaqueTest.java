@@ -1,6 +1,5 @@
 package tech.ada.banco.services;
 
-import org.hibernate.HibernateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import tech.ada.banco.exceptions.ResourceNotFoundException;
@@ -10,14 +9,11 @@ import tech.ada.banco.model.ModalidadeConta;
 import tech.ada.banco.repository.ContaRepository;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SaqueTest {
 
